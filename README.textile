@@ -29,20 +29,20 @@ checkout transaction.
 
 The interface to the checkout should look like:
 
-<code><pre>
+<pre><code>
    co = CheckOut.new(pricing_rules)
    co.scan(item)
    co.scan(item)
        :    :
    price = co.total
-</pre></code>
+</code></pre>
 
 Here’s a set of unit tests for a Ruby implementation. The helper method
 price lets you specify a sequence of items using a string, calling the
 checkout’s scan method on each item in turn before finally returning the
 total price.
 
-<code><pre>
+<pre><code>
   class TestPrice < Test::Unit::TestCase
 
     def price(goods)
@@ -79,7 +79,7 @@ total price.
       co.scan("B");  assert_equal(175, co.total)
     end
   end
-</pre></code>
+</code></pre>
 
 There are lots of ways of implementing this kind of algorithm; if you have
 time, experiment with several.
