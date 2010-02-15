@@ -1,3 +1,7 @@
+h2. Kata Nine: Back to the CheckOut
+
+http://codekata.pragprog.com/2007/01/kata_nine_back_.html
+
 Back to the supermarket. This week, we’ll implement the code for a checkout
 system that handles pricing schemes such as "apples cost 50 cents, three
 apples cost $1.30."
@@ -84,7 +88,7 @@ total price.
 There are lots of ways of implementing this kind of algorithm; if you have
 time, experiment with several.
 
-Objectives of the Kata
+h2. Objectives of the Kata
 
 To some extent, this is just a fun little problem. But underneath the covers,
 it’s a stealth exercise in decoupling. The challenge description doesn’t
