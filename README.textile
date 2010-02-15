@@ -15,13 +15,11 @@ them, and they’ll cost you y cents. For example, item ‘A’ might cost 50
 cents individually, but this week we have a special offer: buy three ‘A’s
 and they’ll cost you $1.30. In fact this week’s prices are:
 
-  Item   Unit      Special
-         Price     Price
-  --------------------------
-    A     50       3 for 130
-    B     30       2 for 45
-    C     20
-    D     15
+|*Item*|*Unit Price*|*Special Price*|
+|A|50|3 for 130|
+|B|30|2 for 45|
+|C|20||
+|D|15||
 
 Our checkout accepts items in any order, so that if we scan a B, an A, and
 another B, we’ll recognize the two B’s and price them at 45 (for a total
@@ -31,17 +29,20 @@ checkout transaction.
 
 The interface to the checkout should look like:
 
+<code><pre>
    co = CheckOut.new(pricing_rules)
    co.scan(item)
    co.scan(item)
        :    :
    price = co.total
+</pre></code>
 
 Here’s a set of unit tests for a Ruby implementation. The helper method
 price lets you specify a sequence of items using a string, calling the
 checkout’s scan method on each item in turn before finally returning the
 total price.
 
+<code><pre>
   class TestPrice < Test::Unit::TestCase
 
     def price(goods)
@@ -78,6 +79,7 @@ total price.
       co.scan("B");  assert_equal(175, co.total)
     end
   end
+</pre></code>
 
 There are lots of ways of implementing this kind of algorithm; if you have
 time, experiment with several.
