@@ -1,0 +1,1 @@
+class SimplePricingRules extends PricingRules

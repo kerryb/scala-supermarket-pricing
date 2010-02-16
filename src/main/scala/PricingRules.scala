@@ -1,1 +1,1 @@
-class PricingRules
+trait PricingRules
