@@ -1,1 +1,4 @@
-class SimplePricingRules extends PricingRules
+class SimplePricingRules extends PricingRules {
+  def priceOf(sku: String) {
+  }
+}

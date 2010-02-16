@@ -1,3 +1,7 @@
 class Checkout(pricingRules: PricingRules) {
-  def total = {0}
+  var total = 0
+
+  def scan(sku: String) {
+    total += 50
+  }
 }
