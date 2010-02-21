@@ -1,3 +1,3 @@
 trait PricingRules {
-  def priceOf(sku: String): Int
+  def priceOf(itemCode: String): Int
 }

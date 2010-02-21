@@ -1,5 +1,5 @@
 class SimplePricingRules(prices: Map[String, Int]) extends PricingRules {
-  def priceOf(sku: String) = {
-    prices(sku)
+  def priceOf(itemCode: String) = {
+    prices(itemCode)
   }
 }
