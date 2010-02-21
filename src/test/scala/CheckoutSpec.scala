@@ -1,7 +1,8 @@
 import org.scalatest.Spec
 import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.OneInstancePerTest
 
-class CheckoutSpec extends Spec with ShouldMatchers {
+class CheckoutSpec extends Spec with ShouldMatchers with OneInstancePerTest {
   describe ("Checkout") {
     describe ("with simple pricing rules") {
       val PRICING_RULES = new SimplePricingRules
@@ -14,6 +15,12 @@ class CheckoutSpec extends Spec with ShouldMatchers {
       it ("calculates the price of a single item") {
         checkout.scan("A")
         checkout.total should equal(50)
+      }
+
+      it ("calculates the price of two identical items") {
+        checkout.scan("A")
+        checkout.scan("A")
+        checkout.total should equal(100)
       }
     }
   }
