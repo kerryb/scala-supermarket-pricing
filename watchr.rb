@@ -1,1 +1,1 @@
-watch('src/.*') { |f| system "sbt test" }
+watch('(src|spec/src)/.*') { |f| system "rake" }
