@@ -11,23 +11,22 @@ SPEC_CLASSES = SPEC_SRC.map {|f| f.pathmap("%{src,bin}X.class")}
 CLEAN.include %w(bin spec/bin)
 
 desc "Compile and run specs"
-#task :default => CLASSES << :spec
 task :default => :spec
 
 desc "Run specs"
 task :spec => CLASSES + SPEC_CLASSES do
-  exec "scala -cp #{SCALA_HOME}/lib/scalatest-1.0.jar:bin:spec/bin org.scalatest.tools.Runner -o -p spec/bin"
+  sh "scala -cp #{SCALA_HOME}/lib/scalatest-1.0.jar:bin:spec/bin org.scalatest.tools.Runner -o -p spec/bin"
 end
 
 directory "bin"
 directory "spec/bin"
 
 rule(%r(^bin/.*\.class) => [proc {|f| f.pathmap("%{^bin,src}X.scala")}, "bin"]) do |t|
-  puts command = "fsc -deprecation -cp bin -sourcepath src -deprecation -d bin #{t.source}"
-  system(command) || fail("Compilation failed")
+  command = "fsc -deprecation -classpath bin -sourcepath src -d bin #{t.source}"
+  sh(command) || fail("Compilation failed")
 end
 
-rule(%r(^spec/bin/.*\.class) => [proc {|f| f.pathmap("%{^spec/bin,spec/src}X.scala")}, "spec/bin"]) do |t|
-  puts command = "fsc -deprecation -cp lib/scalatest-1.0.jar:bin -d spec/bin #{t.source}"
-  system(command) || fail("Spec compilation failed")
+rule(%r(^spec/bin/.*\.class) => [proc {|f| f.pathmap("%{^spec/bin,spec/src}X.scala")}, "spec/bin"] + CLASSES) do |t|
+  command = "fsc -deprecation -classpath bin -sourcepath spec/src -d spec/bin #{t.source}"
+  sh(command) || fail("Spec compilation failed")
 end
