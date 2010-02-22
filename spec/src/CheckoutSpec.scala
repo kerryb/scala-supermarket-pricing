@@ -39,6 +39,10 @@ class CheckoutSpec extends Spec with ShouldMatchers with OneInstancePerTest {
       val checkout = new Checkout(rules)
 
       it should behave like basicPricing(checkout)
+
+      it ("applies discount when buying a specified number of an item") {
+        totalPrice(checkout, "AAA") should equal(130)
+      }
     }
   }
 }
