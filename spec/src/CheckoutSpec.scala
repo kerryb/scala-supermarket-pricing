@@ -35,13 +35,29 @@ class CheckoutSpec extends Spec with ShouldMatchers with OneInstancePerTest {
     }
 
     describe ("with discount pricing rules") {
-      val rules = new DiscountPricingRules(Map("A" -> 50, "B" -> 30))
+      val rules = new DiscountPricingRules(Map(
+        "A" -> new PriceWithDiscount(50, 3, 130),
+        "B" -> new PriceWithDiscount(30, 2, 45),
+        "C" -> new SimplePrice(20)
+      ))
       val checkout = new Checkout(rules)
 
       it should behave like basicPricing(checkout)
 
       it ("applies discount when buying a specified number of an item") {
         totalPrice(checkout, "AAA") should equal(130)
+      }
+
+      it ("reverts to the normal price after the discount volume") {
+        totalPrice(checkout, "AAAA") should equal(180)
+      }
+
+      it ("reapplies the discount for multiples of the discount volume") {
+        totalPrice(checkout, "AAAAAA") should equal(260)
+      }
+
+      it ("calculates the price for a variety of items, with and without discounts") {
+        totalPrice(checkout, "ACABABA") should equal(245)
       }
     }
   }
